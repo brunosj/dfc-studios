@@ -1,0 +1,282 @@
+@import 'tailwindcss';
+@import './DFCpalette_202505.css';
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* * {
+  outline: 1px solid gray;
+} */
+
+:root {
+  --background: white;
+  --foreground: #1a1a1a;
+  --logo-color: #1c2440;
+
+  /* Define color variables for both light and dark modes */
+  --dfc-dark-blue: #1c2440;
+  --dfc-teal: #00a1bd;
+  --dfc-red: #f15959;
+  --dfc-yellow: #ffce00;
+  --dfc-light-grey: #ededed;
+  --dfc-green: #5ba85d;
+  --dfc-dark-green: #256865;
+  --dfc-purple: #755a88;
+  --dfc-light-blue: #99d3e0;
+  --dfc-hero-color1: #00a1bd;
+  --dfc-hero-color2: #f15959;
+  --dfc-contact-button: #f15959;
+}
+
+@theme static {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-greycliff);
+  --font-mono: var(--font-greycliff);
+
+  /* Set unified color variables that automatically switch */
+  --color-dfc-dark-blue: var(--dfc-dark-blue);
+  --color-dfc-teal: var(--dfc-teal);
+  --color-dfc-red: var(--dfc-red);
+  --color-dfc-yellow: var(--dfc-yellow);
+  --color-dfc-light-grey: var(--dfc-light-grey);
+  --color-dfc-green: var(--dfc-green);
+  --color-dfc-dark-green: var(--dfc-dark-green);
+  --color-dfc-purple: var(--dfc-purple);
+  --color-dfc-light-blue: var(--dfc-light-blue);
+  --color-dfc-hero-color1: var(--dfc-hero-color1);
+  --color-dfc-hero-color2: var(--dfc-hero-color2);
+  --color-dfc-contact-button: var(--dfc-contact-button);
+
+  /* Keep the separate dark mode definitions for direct reference if needed */
+  --color-light-dfc-dark-blue: #1c2440;
+  --color-light-dfc-teal: #00a1bd;
+  --color-light-dfc-red: #f15959;
+  --color-light-dfc-yellow: #ffce00;
+  --color-light-dfc-light-grey: #ededed;
+  --color-light-dfc-green: #5ba85d;
+  --color-light-dfc-dark-green: #256865;
+  --color-light-dfc-purple: #755a88;
+  --color-light-dfc-light-blue: #99d3e0;
+
+  --color-dark-dfc-dark-blue: #2a3359;
+  --color-dark-dfc-teal: #33c2db;
+  --color-dark-dfc-red: #ff7b7b;
+  --color-dark-dfc-yellow: #ffd84d;
+  --color-dark-dfc-light-grey: #2e2e2e;
+  --color-dark-dfc-green: #7bc97e;
+  --color-dark-dfc-dark-green: #36857f;
+  --color-dark-dfc-purple: #9e7db6;
+  --color-dark-dfc-light-blue: #b3e0ea;
+
+  --animate-spin-slow: spin 5s linear infinite;
+
+  --megaphone-highlights: #00a1bd; /* teal */
+  --megaphone-base: #ededed;
+  --megaphone-hover: #e2e2e2;
+  --megaphone-selected: #e0e0e0;
+}
+
+[data-theme='dark'] {
+  --background: #1c2440;
+  --foreground: #white;
+  --logo-color: white;
+  --dfc-dark-blue: #1c2440;
+  --dfc-teal: #00a1bd;
+  --dfc-red: #f15959;
+  --dfc-yellow: #ffd84d;
+  --dfc-light-grey: #2e2e2e;
+  --dfc-green: #7bc97e;
+  --dfc-dark-green: #36857f;
+  --dfc-purple: #9e7db6;
+  --dfc-light-blue: #b3e0ea;
+
+  /* --megaphone-highlights: #ff7b7b; */
+  --megaphone-base: #252b44;
+  --megaphone-hover: #3b4057;
+  --megaphone-selected: #3b4057;
+  --dfc-contact-button: #00a1bd;
+}
+
+@layer components {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .layout {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  .sectionPy {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .sectionPt {
+    padding-top: 2rem;
+  }
+
+  .sectionPb {
+    padding-bottom: 2rem;
+  }
+
+  .pageMt {
+    padding-top: 4rem;
+  }
+
+  .pageMy {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  p,
+  li {
+    font-size: 1rem;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .payload-richtext a {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .payload-richtext a:hover {
+    opacity: 0.5;
+  }
+
+  .small-text p {
+    font-size: 0.75rem;
+  }
+
+  h6 {
+    font-size: 0.75rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .sectionPy {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .sectionPt {
+      padding-top: 4rem;
+    }
+
+    .sectionPb {
+      padding-bottom: 4rem;
+    }
+
+    .pageMt {
+      padding-top: 10rem;
+    }
+
+    .pageMy {
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
+
+    .small-text p {
+      font-size: 1rem;
+    }
+
+    p,
+    li {
+      font-size: 1.125rem;
+    }
+
+    h6 {
+      font-size: 1rem;
+    }
+  }
+}
+
+/* Button hover effects */
+.btn-hover-effect {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.3s ease-in-out;
+}
+
+.btn-hover-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--btn-hover-bg, currentColor);
+  transition: transform 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.btn-hover-effect:hover::before {
+  transform: translateX(100%);
+}
+
+/* For outline variant, text becomes white on hover */
+.btn-hover-effect.btn-outline:hover {
+  color: var(--btn-hover-color, white) !important;
+}
+
+/* For filled variant, text color changes to the button color on hover */
+.btn-hover-effect.btn-filled:hover {
+  color: var(--btn-hover-color, var(--btn-color)) !important;
+}
+
+/* Dark mode button hover effects */
+[data-theme='dark'] .btn-hover-effect::before {
+  background-color: var(--btn-dark-hover-bg, var(--btn-hover-bg, currentColor));
+}
+
+[data-theme='dark'] .btn-hover-effect.btn-outline:hover {
+  color: var(--btn-dark-hover-color, var(--btn-hover-color, white)) !important;
+}
+
+[data-theme='dark'] .btn-hover-effect.btn-filled:hover {
+  color: var(
+    --btn-dark-hover-color,
+    var(--btn-hover-color, var(--btn-color))
+  ) !important;
+}
+
+.filter-top {
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-top::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    transparent 25%,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    transparent 10%,
+    black 100%
+  );
+  transition: backdrop-filter 0.3s ease;
+}
+
+@layer base {
+  :root {
+    --tw-text-opacity: 1;
+  }
+}

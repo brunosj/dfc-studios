@@ -1,0 +1,22 @@
+{
+  "name": "dfc-studios",
+  "description": "DFC Studios - Monorepo",
+  "author": "@brunosj",
+  "private": true,
+  "scripts": {
+    "build": "NEXT_BUILD_FORCE_FRESH=true pnpm --filter studio build && NEXT_BUILD_FORCE_FRESH=true pnpm --filter backend build",
+    "dev": "pnpm --parallel -r dev",
+    "lint": "pnpm --parallel -r lint",
+    "clean": "pnpm --parallel -r clean"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}
