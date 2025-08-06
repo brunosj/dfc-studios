@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    qualities: [25, 50, 75],
+    qualities: [100],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

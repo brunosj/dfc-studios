@@ -107,14 +107,14 @@ export default async function TeamContent({ teamMember }: TeamContentProps) {
                 src={getImageUrl(normalPicture)}
                 alt={normalPicture.alt || `${name} - Normal`}
                 fill
-                className='object-cover transition-opacity duration-300 group-hover:opacity-0 grayscale'
+                className='object-cover transition-opacity duration-300 group-hover:opacity-0 '
               />
               {/* Silly picture (shown on hover) */}
               <Image
                 src={getImageUrl(sillyPicture)}
                 alt={sillyPicture.alt || `${name} - Silly`}
                 fill
-                className='object-cover absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+                className='object-cover absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 grayscale'
               />
             </div>
           ) : (
