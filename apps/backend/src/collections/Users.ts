@@ -16,6 +16,7 @@ export const Users: CollectionConfig = {
       description: 'Users - DFC Studios',
     },
     defaultColumns: ['name', 'email', 'updatedAt'],
+    group: 'Settings',
   },
   auth: true,
   fields: [

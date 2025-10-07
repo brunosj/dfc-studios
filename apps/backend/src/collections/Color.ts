@@ -17,6 +17,7 @@ export const Color: CollectionConfig = {
       title: 'Colors - DFC Studios',
       description: 'Colors - DFC Studios',
     },
+    group: 'Settings',
   },
   fields: [
     {

@@ -22,8 +22,8 @@ export const Services: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'Services | Page',
-    plural: 'Services | Page',
+    singular: 'Services',
+    plural: 'Services',
   },
   admin: {
     useAsTitle: 'title',
@@ -32,6 +32,7 @@ export const Services: CollectionConfig = {
       title: 'Services - DFC Studios',
       description: 'Services - DFC Studios',
     },
+    group: 'Pages',
   },
   // Limit to a single document
   hooks: {

@@ -22,8 +22,8 @@ export const Homepage: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'Homepage | Page',
-    plural: 'Homepage | Page',
+    singular: 'Homepage',
+    plural: 'Homepage',
   },
   admin: {
     useAsTitle: 'title',
@@ -32,6 +32,7 @@ export const Homepage: CollectionConfig = {
       title: 'Homepage - DFC Studios',
       description: 'Homepage - DFC Studios',
     },
+    group: 'Pages',
   },
   // Limit to a single document
   hooks: {

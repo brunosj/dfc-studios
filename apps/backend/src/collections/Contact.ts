@@ -22,8 +22,8 @@ export const Contact: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'Contact | Page',
-    plural: 'Contact | Page',
+    singular: 'Contact',
+    plural: 'Contact',
   },
   admin: {
     useAsTitle: 'title',
@@ -32,6 +32,7 @@ export const Contact: CollectionConfig = {
       title: 'Contact - DFC Studios',
       description: 'Contact - DFC Studios',
     },
+    group: 'Pages',
   },
   // Limit to a single document
   hooks: {

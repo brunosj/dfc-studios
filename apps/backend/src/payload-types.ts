@@ -54,6 +54,7 @@ export type SupportedTimezones =
   | 'Asia/Singapore'
   | 'Asia/Tokyo'
   | 'Asia/Seoul'
+  | 'Australia/Brisbane'
   | 'Australia/Sydney'
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
@@ -70,6 +71,9 @@ export interface Config {
     portfolio: Portfolio;
     'our-services': OurService;
     about: About;
+    'report-builder': ReportBuilder;
+    publications: Publication;
+    documents: Document;
     contact: Contact;
     pages: Page;
     team: Team;
@@ -96,6 +100,9 @@ export interface Config {
     portfolio: PortfolioSelect<false> | PortfolioSelect<true>;
     'our-services': OurServicesSelect<false> | OurServicesSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
+    'report-builder': ReportBuilderSelect<false> | ReportBuilderSelect<true>;
+    publications: PublicationsSelect<false> | PublicationsSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
@@ -257,7 +264,7 @@ export interface Project {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -272,7 +279,7 @@ export interface Project {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -287,7 +294,7 @@ export interface Project {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -329,7 +336,7 @@ export interface Service {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -441,7 +448,7 @@ export interface Team {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -484,7 +491,7 @@ export interface Team {
           root: {
             type: string;
             children: {
-              type: string;
+              type: any;
               version: number;
               [k: string]: unknown;
             }[];
@@ -533,7 +540,7 @@ export interface Portfolio {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -575,7 +582,7 @@ export interface OurService {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -617,7 +624,7 @@ export interface About {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -632,7 +639,7 @@ export interface About {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -647,7 +654,7 @@ export interface About {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -680,6 +687,1164 @@ export interface About {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "report-builder".
+ */
+export interface ReportBuilder {
+  id: string;
+  title: string;
+  /**
+   * Build your interactive report using scrollytelling blocks
+   */
+  layout: (
+    | ScrollytellingBlock
+    | SectionBlock
+    | TextBoxBlock
+    | HeroBlock
+    | HighlightsBlock
+    | GridTextImageBlock
+    | TextBlock
+    | PictureBlock
+    | HeadingBlock
+    | BannerBlock
+    | ReportRelatedContentBlock
+  )[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * Define custom colors for this report
+   */
+  colors?: {
+    /**
+     * Hex color code (e.g., #2563eb)
+     */
+    primary?: string | null;
+    /**
+     * Hex color code (e.g., #60a5fa)
+     */
+    primaryLight?: string | null;
+    /**
+     * Hex color code (e.g., #10b981)
+     */
+    secondary?: string | null;
+    /**
+     * Hex color code (e.g., #34d399)
+     */
+    secondaryLight?: string | null;
+    /**
+     * Hex color code (e.g., #f59e0b)
+     */
+    tertiary?: string | null;
+    /**
+     * Hex color code (e.g., #fbbf24)
+     */
+    tertiaryLight?: string | null;
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollytellingBlock".
+ */
+export interface ScrollytellingBlock {
+  layout: (HeroBlock | HighlightsBlock | GridTextImageBlock | TextBoxBlock)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'scrollytelling';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  content?: {
+    layout?: (HeadingBlock | PictureBlock)[] | null;
+  };
+  metadata?: {
+    topicArea?: string | null;
+    type?: string | null;
+    publicationDate?: string | null;
+  };
+  authors?:
+    | {
+        name: string;
+        logo?: (string | null) | Media;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingBlock".
+ */
+export interface HeadingBlock {
+  parameters: {
+    fontSize: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
+    fontWeight: 'light' | 'normal' | 'medium' | 'bold';
+    textTransform: 'none' | 'capitalize' | 'uppercase';
+    width: 'half' | 'two-thirds' | 'full';
+    alignment: 'left' | 'center' | 'right';
+    position: 'left' | 'center' | 'right';
+    paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    /**
+     * Used in layout blocks like GridTextImage to control heading placement
+     */
+    layoutPosition?: ('default' | 'topOfImage' | 'topOfText') | null;
+    insideContainer?: boolean | null;
+  };
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    /**
+     * Color for highlighting specific words or phrases
+     */
+    highlightColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    showBackground?: boolean | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Apply rounded corners to background
+     */
+    backgroundRounded?: boolean | null;
+  };
+  content: {
+    content: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heading';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PictureBlock".
+ */
+export interface PictureBlock {
+  image: string | Media;
+  width: 'half' | 'two-thirds' | 'full';
+  position?: ('left' | 'center' | 'right') | null;
+  insideContainer?: boolean | null;
+  /**
+   * Display image alt text as caption
+   */
+  showCaption?: boolean | null;
+  captionSettings?: {
+    /**
+     * Position of the caption relative to the image
+     */
+    captionPosition: 'bottom-left' | 'bottom-center' | 'bottom-right' | 'top-left' | 'top-center' | 'top-right';
+  };
+  showOverlay?: boolean | null;
+  overlaySettings?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    overlayColor:
+      | 'primary'
+      | 'primaryLight'
+      | 'secondary'
+      | 'secondaryLight'
+      | 'tertiary'
+      | 'tertiaryLight'
+      | '#000000'
+      | '#ffffff';
+    /**
+     * Opacity percentage (0-100)
+     */
+    overlayOpacity: number;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'picture';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HighlightsBlock".
+ */
+export interface HighlightsBlock {
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    headingColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    contentColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+  };
+  highlights?:
+    | {
+        heading: string;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'highlights';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridTextImageBlock".
+ */
+export interface GridTextImageBlock {
+  parameters?: {
+    /**
+     * Make image sticky when scrolling
+     */
+    stickyImage?: boolean | null;
+    /**
+     * Switch the order of text and image columns
+     */
+    invertColumns?: boolean | null;
+    /**
+     * Constrain text content width using layout container
+     */
+    insideContainer?: boolean | null;
+  };
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+  };
+  content: {
+    /**
+     * Optional heading for this section. Use the position field in the heading to control placement. Note: Width, container, and background styling options are not used in this layout.
+     */
+    heading?: HeadingBlock[] | null;
+    text: TextBlock[];
+    /**
+     * Image for this section. Note: Width, container, positioning, and overlay options are not used in this layout.
+     */
+    image: PictureBlock[];
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gridTextImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  width: 'half' | 'two-thirds' | 'full';
+  /**
+   * Two columns will automatically flow content using CSS columns
+   */
+  columnLayout: 'one-column' | 'two-columns';
+  alignment: 'left' | 'center' | 'right';
+  position: 'left' | 'center' | 'right';
+  paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+  paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+  paddingLeft: 'none' | 'small' | 'normal' | 'large' | 'xl';
+  paddingRight: 'none' | 'small' | 'normal' | 'large' | 'xl';
+  /**
+   * Content will automatically flow into columns when two-column layout is selected
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  insideContainer?: boolean | null;
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Spacing between columns (only applies to two-column layout)
+     */
+    columnGap?: ('small' | 'normal' | 'large') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBoxBlock".
+ */
+export interface TextBoxBlock {
+  width: 'half' | 'two-thirds' | 'full';
+  position?: ('left' | 'center' | 'right') | null;
+  content?: {
+    Blocks?: (HeadingBlock | TextBlock)[] | null;
+  };
+  styling: {
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    borderColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    borderWidth: '0' | '1' | '2' | '4';
+    borderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+    /**
+     * Add a large colored accent border on the left side
+     */
+    showLeftAccent?: boolean | null;
+    /**
+     * Choose color for the left accent border
+     */
+    leftAccentColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    leftAccentWidth?: ('8' | '12' | '16' | '24') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock".
+ */
+export interface SectionBlock {
+  parameters: {
+    width: 'half' | 'two-thirds' | 'full';
+    alignment: 'left' | 'center' | 'right';
+    verticalAlignment: 'top' | 'center' | 'bottom';
+    paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingLeft: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingRight: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    /**
+     * Whether this section should use the layout container
+     */
+    insideContainer?: boolean | null;
+    /**
+     * Minimum height for this section
+     */
+    minHeight?: ('auto' | 'screen' | 'half-screen') | null;
+    /**
+     * Add any blocks to this section. They will be rendered in order.
+     */
+    content?:
+      | (
+          | HeadingBlock
+          | PictureBlock
+          | TextBlock
+          | HeroBlock
+          | HighlightsBlock
+          | GridTextImageBlock
+          | TextBoxBlock
+          | TwoColumnBlock
+          | TableBlock
+          | ScrollytellingBlock
+        )[]
+      | null;
+  };
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | '#f8fafc'
+          | '#e2e8f0'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | '#1e293b'
+          | '#64748b'
+        )
+      | null;
+    borderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+    shadow?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock".
+ */
+export interface TwoColumnBlock {
+  parameters: {
+    /**
+     * Width of left column, right column is calculated automatically
+     */
+    leftColumnWidth: '33' | '50' | '67';
+    /**
+     * Space between columns
+     */
+    columnGap: 'small' | 'normal' | 'large' | 'xl';
+    /**
+     * Vertical position of content within the left column
+     */
+    leftColumnPosition: 'top' | 'center' | 'bottom';
+    /**
+     * Vertical position of content within the right column
+     */
+    rightColumnPosition: 'top' | 'center' | 'bottom';
+    /**
+     * Make left column content stick to the top of the viewport while scrolling.
+     */
+    leftColumnSticky?: boolean | null;
+    /**
+     * Make right column content stick to the top of the viewport while scrolling.
+     */
+    rightColumnSticky?: boolean | null;
+  };
+  styling?: {
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | '#f8fafc'
+          | '#e2e8f0'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | '#1e293b'
+          | '#64748b'
+        )
+      | null;
+  };
+  content?: {
+    /**
+     * Add blocks to the left column.
+     */
+    leftColumnContent?:
+      | (
+          | HeadingBlock
+          | PictureBlock
+          | TextBlock
+          | HeroBlock
+          | HighlightsBlock
+          | GridTextImageBlock
+          | TextBoxBlock
+          | TableBlock
+          | ScrollytellingBlock
+        )[]
+      | null;
+    /**
+     * Add blocks to the right column.
+     */
+    rightColumnContent?:
+      | (
+          | HeadingBlock
+          | PictureBlock
+          | TextBlock
+          | HeroBlock
+          | HighlightsBlock
+          | GridTextImageBlock
+          | TextBoxBlock
+          | TableBlock
+          | ScrollytellingBlock
+        )[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'twoColumn';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  parameters: {
+    /**
+     * Optional title displayed above the table in small font
+     */
+    title?: string | null;
+    width: 'half' | 'two-thirds' | 'full';
+    position: 'left' | 'center' | 'right';
+    rowGap: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingTop: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingBottom: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingLeft: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    paddingRight: 'none' | 'small' | 'normal' | 'large' | 'xl';
+    /**
+     * Whether this table should use the layout container
+     */
+    insideContainer?: boolean | null;
+  };
+  content?: {
+    /**
+     * Add rows to your table. Each row can have different styling and layout.
+     */
+    rows?:
+      | {
+          styling: {
+            backgroundColor?:
+              | (
+                  | 'primary'
+                  | 'primaryLight'
+                  | 'secondary'
+                  | 'secondaryLight'
+                  | 'tertiary'
+                  | 'tertiaryLight'
+                  | '#000000'
+                  | '#ffffff'
+                  | '#f8fafc'
+                  | '#e2e8f0'
+                  | 'transparent'
+                )
+              | null;
+            textColor?:
+              | (
+                  | 'primary'
+                  | 'primaryLight'
+                  | 'secondary'
+                  | 'secondaryLight'
+                  | 'tertiary'
+                  | 'tertiaryLight'
+                  | '#000000'
+                  | '#ffffff'
+                  | '#1e293b'
+                  | '#64748b'
+                )
+              | null;
+            backgroundOpacity?: ('10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90' | '100') | null;
+            fontSize: 'small' | 'normal' | 'large' | 'xl';
+            fontWeight: 'normal' | 'medium' | 'semibold' | 'bold';
+          };
+          layout: {
+            columnLayout: 'single' | 'two';
+            showBullets?: boolean | null;
+            leftColumnBullets?: boolean | null;
+            rightColumnBullets?: boolean | null;
+            singleContent?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            leftContent?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            rightContent?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock".
+ */
+export interface BannerBlock {
+  heading: string;
+  /**
+   * Brief description or text content for the banner
+   */
+  description?: string | null;
+  /**
+   * Select the type of content this banner will feature
+   */
+  contentType: 'publication' | 'post' | 'video' | 'initiative';
+  /**
+   * Select the publication to feature
+   */
+  publication?: (string | null) | Publication;
+  /**
+   * Additional documents available for download
+   */
+  extraDocuments?: (string | Document)[] | null;
+  /**
+   * Text for additional documents buttons
+   */
+  extraDocumentsButtonText?: string | null;
+  customButton?: {
+    text?: string | null;
+    /**
+     * Override default URL for the selected content. Leave empty to use content's default URL.
+     */
+    url?: string | null;
+    appearance?: ('outline' | 'filled' | 'ghost') | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    color?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+  };
+  display: {
+    /**
+     * How the image should be displayed
+     */
+    imageDisplay: 'background' | 'container';
+    /**
+     * Position of image when displayed in container
+     */
+    imagePosition?: ('left' | 'right') | null;
+    /**
+     * Optional custom image to use as background. If not provided, uses content image.
+     */
+    customImage?: (string | null) | Media;
+    /**
+     * Choose from report colors or standard options
+     */
+    backgroundColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+          | 'transparent'
+        )
+      | null;
+    /**
+     * Choose from report colors or standard options
+     */
+    textColor?:
+      | (
+          | 'primary'
+          | 'primaryLight'
+          | 'secondary'
+          | 'secondaryLight'
+          | 'tertiary'
+          | 'tertiaryLight'
+          | '#000000'
+          | '#ffffff'
+        )
+      | null;
+    /**
+     * Add a colored overlay over the background image for better text readability
+     */
+    showOverlay?: boolean | null;
+    /**
+     * Opacity of the overlay (0.0 to 1.0)
+     */
+    overlayOpacity?: number | null;
+  };
+  /**
+   * Maximum height constraint. Content can be shorter but not taller.
+   */
+  height?: ('auto' | 'small' | 'medium' | 'large' | 'xl') | null;
+  textAlignment?: ('left' | 'center' | 'right') | null;
+  /**
+   * Whether the banner content should be constrained by the layout container
+   */
+  insideContainer?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publications".
+ */
+export interface Publication {
+  id: string;
+  title: string;
+  info: {
+    category: string;
+    author?: string | null;
+    summary?: string | null;
+    publicationDate?: string | null;
+    language?: ('en' | 'de' | 'fr') | null;
+    keywords?:
+      | {
+          keyword?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    doi?: boolean | null;
+    doiNumber?: number | null;
+    doiUrl?: string | null;
+    citation?: string | null;
+  };
+  content?: {
+    /**
+     * Generate a news entry for this publication (use Description field in extension below)
+     */
+    generateNewsEntry?: boolean | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Publication thumbnail image
+     */
+    thumbnail?: (string | null) | Media;
+    /**
+     * Publication PDF document
+     */
+    pdf?: (string | null) | Document;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  slug: string;
+  /**
+   * Automated news entry content
+   */
+  automatedNewsEntry?: string | null;
+  /**
+   * Cloudinary URL for thumbnail (migration field)
+   */
+  thumbnailFromCloudinary?: string | null;
+  /**
+   * Original Contentful entry ID (for migration tracking)
+   */
+  contentfulId?: string | null;
+  /**
+   * Notes about the migration process
+   */
+  migrationNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: string;
+  /**
+   * Display title for the document
+   */
+  title?: string | null;
+  /**
+   * Brief description of the document
+   */
+  description?: string | null;
+  /**
+   * Auto-generated thumbnail path
+   */
+  thumbnailPath?: string | null;
+  /**
+   * Whether thumbnail was successfully generated
+   */
+  thumbnailGenerated?: boolean | null;
+  /**
+   * Original URL from Contentful (for migration tracking)
+   */
+  originalUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReportRelatedContentBlock".
+ */
+export interface ReportRelatedContentBlock {
+  featuredResource?: {
+    /**
+     * Display a featured resource as a banner at the top of this section
+     */
+    enable?: boolean | null;
+    resourceType?: ('publication' | 'post' | 'video') | null;
+    publication?: (string | null) | Publication;
+    /**
+     * Override the default title for the banner (optional)
+     */
+    customTitle?: string | null;
+    /**
+     * Override the default description for the banner (optional)
+     */
+    customDescription?: string | null;
+  };
+  /**
+   * Optional heading for this related content section
+   */
+  heading?: string | null;
+  /**
+   * Optional description text for this section
+   */
+  description?: string | null;
+  /**
+   * Choose the type of content to display in this section
+   */
+  contentType: 'resources' | 'events' | 'partners' | 'team';
+  /**
+   * Create groups of different resource types with custom headings
+   */
+  resourceGroups?:
+    | {
+        /**
+         * e.g., "Related Publications", "Featured Videos", "Blog Posts"
+         */
+        heading: string;
+        /**
+         * Choose the type of resources in this group
+         */
+        resourceType: 'publications' | 'posts' | 'videos';
+        /**
+         * Select publications to display in this group
+         */
+        publications?: (string | Publication)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  display?: {
+    layout: 'grid' | 'list' | 'cards' | 'carousel' | 'simple';
+    columns?: ('1' | '2' | '3' | '4' | '5') | null;
+    showImages?: boolean | null;
+    showDescriptions?: boolean | null;
+    showMetadata?: boolean | null;
+    /**
+     * Leave empty to show all items
+     */
+    itemLimit?: number | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reportRelatedContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact".
  */
 export interface Contact {
@@ -690,7 +1855,7 @@ export interface Contact {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -727,7 +1892,7 @@ export interface Page {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -787,6 +1952,13 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
 }
 /**
@@ -830,6 +2002,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'about';
         value: string | About;
+      } | null)
+    | ({
+        relationTo: 'report-builder';
+        value: string | ReportBuilder;
+      } | null)
+    | ({
+        relationTo: 'publications';
+        value: string | Publication;
+      } | null)
+    | ({
+        relationTo: 'documents';
+        value: string | Document;
       } | null)
     | ({
         relationTo: 'contact';
@@ -1028,6 +2212,576 @@ export interface AboutSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "report-builder_select".
+ */
+export interface ReportBuilderSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        scrollytelling?: T | ScrollytellingBlockSelect<T>;
+        section?: T | SectionBlockSelect<T>;
+        textBox?: T | TextBoxBlockSelect<T>;
+        hero?: T | HeroBlockSelect<T>;
+        highlights?: T | HighlightsBlockSelect<T>;
+        gridTextImage?: T | GridTextImageBlockSelect<T>;
+        text?: T | TextBlockSelect<T>;
+        picture?: T | PictureBlockSelect<T>;
+        heading?: T | HeadingBlockSelect<T>;
+        banner?: T | BannerBlockSelect<T>;
+        reportRelatedContent?: T | ReportRelatedContentBlockSelect<T>;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  colors?:
+    | T
+    | {
+        primary?: T;
+        primaryLight?: T;
+        secondary?: T;
+        secondaryLight?: T;
+        tertiary?: T;
+        tertiaryLight?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollytellingBlock_select".
+ */
+export interface ScrollytellingBlockSelect<T extends boolean = true> {
+  layout?:
+    | T
+    | {
+        hero?: T | HeroBlockSelect<T>;
+        highlights?: T | HighlightsBlockSelect<T>;
+        gridTextImage?: T | GridTextImageBlockSelect<T>;
+        textBox?: T | TextBoxBlockSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  content?:
+    | T
+    | {
+        layout?:
+          | T
+          | {
+              heading?: T | HeadingBlockSelect<T>;
+              picture?: T | PictureBlockSelect<T>;
+            };
+      };
+  metadata?:
+    | T
+    | {
+        topicArea?: T;
+        type?: T;
+        publicationDate?: T;
+      };
+  authors?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        url?: T;
+        id?: T;
+      };
+  styling?:
+    | T
+    | {
+        backgroundColor?: T;
+        textColor?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingBlock_select".
+ */
+export interface HeadingBlockSelect<T extends boolean = true> {
+  parameters?:
+    | T
+    | {
+        fontSize?: T;
+        fontWeight?: T;
+        textTransform?: T;
+        width?: T;
+        alignment?: T;
+        position?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        layoutPosition?: T;
+        insideContainer?: T;
+      };
+  styling?:
+    | T
+    | {
+        textColor?: T;
+        highlightColor?: T;
+        showBackground?: T;
+        backgroundColor?: T;
+        backgroundRounded?: T;
+      };
+  content?:
+    | T
+    | {
+        content?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PictureBlock_select".
+ */
+export interface PictureBlockSelect<T extends boolean = true> {
+  image?: T;
+  width?: T;
+  position?: T;
+  insideContainer?: T;
+  showCaption?: T;
+  captionSettings?:
+    | T
+    | {
+        captionPosition?: T;
+      };
+  showOverlay?: T;
+  overlaySettings?:
+    | T
+    | {
+        overlayColor?: T;
+        overlayOpacity?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HighlightsBlock_select".
+ */
+export interface HighlightsBlockSelect<T extends boolean = true> {
+  styling?:
+    | T
+    | {
+        backgroundColor?: T;
+        headingColor?: T;
+        contentColor?: T;
+      };
+  highlights?:
+    | T
+    | {
+        heading?: T;
+        content?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridTextImageBlock_select".
+ */
+export interface GridTextImageBlockSelect<T extends boolean = true> {
+  parameters?:
+    | T
+    | {
+        stickyImage?: T;
+        invertColumns?: T;
+        insideContainer?: T;
+      };
+  styling?:
+    | T
+    | {
+        backgroundColor?: T;
+        textColor?: T;
+      };
+  content?:
+    | T
+    | {
+        heading?:
+          | T
+          | {
+              heading?: T | HeadingBlockSelect<T>;
+            };
+        text?:
+          | T
+          | {
+              text?: T | TextBlockSelect<T>;
+            };
+        image?:
+          | T
+          | {
+              picture?: T | PictureBlockSelect<T>;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  width?: T;
+  columnLayout?: T;
+  alignment?: T;
+  position?: T;
+  paddingTop?: T;
+  paddingBottom?: T;
+  paddingLeft?: T;
+  paddingRight?: T;
+  content?: T;
+  insideContainer?: T;
+  styling?:
+    | T
+    | {
+        textColor?: T;
+        backgroundColor?: T;
+        columnGap?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBoxBlock_select".
+ */
+export interface TextBoxBlockSelect<T extends boolean = true> {
+  width?: T;
+  position?: T;
+  content?:
+    | T
+    | {
+        Blocks?:
+          | T
+          | {
+              heading?: T | HeadingBlockSelect<T>;
+              text?: T | TextBlockSelect<T>;
+            };
+      };
+  styling?:
+    | T
+    | {
+        backgroundColor?: T;
+        borderColor?: T;
+        borderWidth?: T;
+        borderRadius?: T;
+        showLeftAccent?: T;
+        leftAccentColor?: T;
+        leftAccentWidth?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock_select".
+ */
+export interface SectionBlockSelect<T extends boolean = true> {
+  parameters?:
+    | T
+    | {
+        width?: T;
+        alignment?: T;
+        verticalAlignment?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        paddingLeft?: T;
+        paddingRight?: T;
+        insideContainer?: T;
+        minHeight?: T;
+        content?:
+          | T
+          | {
+              heading?: T | HeadingBlockSelect<T>;
+              picture?: T | PictureBlockSelect<T>;
+              text?: T | TextBlockSelect<T>;
+              hero?: T | HeroBlockSelect<T>;
+              highlights?: T | HighlightsBlockSelect<T>;
+              gridTextImage?: T | GridTextImageBlockSelect<T>;
+              textBox?: T | TextBoxBlockSelect<T>;
+              twoColumn?: T | TwoColumnBlockSelect<T>;
+              table?: T | TableBlockSelect<T>;
+              scrollytelling?: T | ScrollytellingBlockSelect<T>;
+            };
+      };
+  styling?:
+    | T
+    | {
+        backgroundColor?: T;
+        textColor?: T;
+        borderRadius?: T;
+        shadow?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnBlock_select".
+ */
+export interface TwoColumnBlockSelect<T extends boolean = true> {
+  parameters?:
+    | T
+    | {
+        leftColumnWidth?: T;
+        columnGap?: T;
+        leftColumnPosition?: T;
+        rightColumnPosition?: T;
+        leftColumnSticky?: T;
+        rightColumnSticky?: T;
+      };
+  styling?:
+    | T
+    | {
+        backgroundColor?: T;
+        textColor?: T;
+      };
+  content?:
+    | T
+    | {
+        leftColumnContent?:
+          | T
+          | {
+              heading?: T | HeadingBlockSelect<T>;
+              picture?: T | PictureBlockSelect<T>;
+              text?: T | TextBlockSelect<T>;
+              hero?: T | HeroBlockSelect<T>;
+              highlights?: T | HighlightsBlockSelect<T>;
+              gridTextImage?: T | GridTextImageBlockSelect<T>;
+              textBox?: T | TextBoxBlockSelect<T>;
+              table?: T | TableBlockSelect<T>;
+              scrollytelling?: T | ScrollytellingBlockSelect<T>;
+            };
+        rightColumnContent?:
+          | T
+          | {
+              heading?: T | HeadingBlockSelect<T>;
+              picture?: T | PictureBlockSelect<T>;
+              text?: T | TextBlockSelect<T>;
+              hero?: T | HeroBlockSelect<T>;
+              highlights?: T | HighlightsBlockSelect<T>;
+              gridTextImage?: T | GridTextImageBlockSelect<T>;
+              textBox?: T | TextBoxBlockSelect<T>;
+              table?: T | TableBlockSelect<T>;
+              scrollytelling?: T | ScrollytellingBlockSelect<T>;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock_select".
+ */
+export interface TableBlockSelect<T extends boolean = true> {
+  parameters?:
+    | T
+    | {
+        title?: T;
+        width?: T;
+        position?: T;
+        rowGap?: T;
+        paddingTop?: T;
+        paddingBottom?: T;
+        paddingLeft?: T;
+        paddingRight?: T;
+        insideContainer?: T;
+      };
+  content?:
+    | T
+    | {
+        rows?:
+          | T
+          | {
+              styling?:
+                | T
+                | {
+                    backgroundColor?: T;
+                    textColor?: T;
+                    backgroundOpacity?: T;
+                    fontSize?: T;
+                    fontWeight?: T;
+                  };
+              layout?:
+                | T
+                | {
+                    columnLayout?: T;
+                    showBullets?: T;
+                    leftColumnBullets?: T;
+                    rightColumnBullets?: T;
+                    singleContent?: T;
+                    leftContent?: T;
+                    rightContent?: T;
+                  };
+              id?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock_select".
+ */
+export interface BannerBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  contentType?: T;
+  publication?: T;
+  extraDocuments?: T;
+  extraDocumentsButtonText?: T;
+  customButton?:
+    | T
+    | {
+        text?: T;
+        url?: T;
+        appearance?: T;
+        color?: T;
+      };
+  display?:
+    | T
+    | {
+        imageDisplay?: T;
+        imagePosition?: T;
+        customImage?: T;
+        backgroundColor?: T;
+        textColor?: T;
+        showOverlay?: T;
+        overlayOpacity?: T;
+      };
+  height?: T;
+  textAlignment?: T;
+  insideContainer?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReportRelatedContentBlock_select".
+ */
+export interface ReportRelatedContentBlockSelect<T extends boolean = true> {
+  featuredResource?:
+    | T
+    | {
+        enable?: T;
+        resourceType?: T;
+        publication?: T;
+        customTitle?: T;
+        customDescription?: T;
+      };
+  heading?: T;
+  description?: T;
+  contentType?: T;
+  resourceGroups?:
+    | T
+    | {
+        heading?: T;
+        resourceType?: T;
+        publications?: T;
+        id?: T;
+      };
+  display?:
+    | T
+    | {
+        layout?: T;
+        columns?: T;
+        showImages?: T;
+        showDescriptions?: T;
+        showMetadata?: T;
+        itemLimit?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publications_select".
+ */
+export interface PublicationsSelect<T extends boolean = true> {
+  title?: T;
+  info?:
+    | T
+    | {
+        category?: T;
+        author?: T;
+        summary?: T;
+        publicationDate?: T;
+        language?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        doi?: T;
+        doiNumber?: T;
+        doiUrl?: T;
+        citation?: T;
+      };
+  content?:
+    | T
+    | {
+        generateNewsEntry?: T;
+        description?: T;
+        thumbnail?: T;
+        pdf?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  slug?: T;
+  automatedNewsEntry?: T;
+  thumbnailFromCloudinary?: T;
+  contentfulId?: T;
+  migrationNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  thumbnailPath?: T;
+  thumbnailGenerated?: T;
+  originalUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1337,6 +3091,13 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1483,7 +3244,7 @@ export interface Footer {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -1498,7 +3259,7 @@ export interface Footer {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];

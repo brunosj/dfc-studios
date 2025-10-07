@@ -22,8 +22,8 @@ export const Portfolio: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'Portfolio | Page',
-    plural: 'Portfolio | Page',
+    singular: 'Portfolio',
+    plural: 'Portfolio',
   },
   admin: {
     useAsTitle: 'title',
@@ -32,6 +32,7 @@ export const Portfolio: CollectionConfig = {
       title: 'Portfolio - DFC Studios',
       description: 'Portfolio - DFC Studios',
     },
+    group: 'Pages',
   },
   // Limit to a single document
   hooks: {

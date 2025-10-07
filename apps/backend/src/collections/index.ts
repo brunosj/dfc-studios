@@ -14,12 +14,17 @@ import { Skill } from './Skill'
 import { Users } from './Users'
 import { Services } from './Services'
 import { Team } from './Team'
-
+import { ReportBuilder } from './ReportBuilder'
+import { Publications } from './Publications'
+import { Documents } from './Documents'
 export const collections = [
   Homepage,
   Portfolio,
   Services,
   About,
+  ReportBuilder,
+  Publications,
+  Documents,
   Contact,
   Pages,
   Team,

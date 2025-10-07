@@ -22,8 +22,8 @@ export const About: CollectionConfig = {
     update: authenticated,
   },
   labels: {
-    singular: 'About | Page',
-    plural: 'About | Page',
+    singular: 'About',
+    plural: 'About',
   },
   admin: {
     useAsTitle: 'title',
@@ -32,6 +32,7 @@ export const About: CollectionConfig = {
       title: 'About - DFC Studios',
       description: 'About - DFC Studios',
     },
+    group: 'Pages',
   },
   // Limit to a single document
   hooks: {

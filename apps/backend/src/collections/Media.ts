@@ -16,6 +16,7 @@ export const Media: CollectionConfig = {
       title: 'Media - DFC Studios',
       description: 'Media - DFC Studios',
     },
+    group: 'Assets',
   },
   fields: [
     {

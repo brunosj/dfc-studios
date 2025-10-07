@@ -43,6 +43,7 @@ export const Pages: CollectionConfig = {
         slug: typeof doc?.slug === 'string' ? doc.slug : '',
         collection: 'pages',
       }),
+    group: 'Pages',
   },
   hooks: {
     beforeChange: [populatePublishedAt],

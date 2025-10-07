@@ -1,0 +1,1 @@
+export { ReportRelatedContent } from './config'
