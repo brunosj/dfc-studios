@@ -26,27 +26,15 @@ jobs:
         EXIT_STATUS=$?
         echo "Deployment script exited with status $EXIT_STATUS"
         exit $EXIT_STATUS
-
   notify:
     needs: deploy
     runs-on: ubuntu-latest
     if: failure()
 
     steps:
-    - name: Send Email
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: peacock.uberspace.de
-        server_port: 587
-        username: ${{ secrets.SMTP_USERNAME }}
-        password: ${{ secrets.SMTP_PASSWORD }}
-        subject: GitHub Actions - DFC-Studios Failed
-        body: |
-          The GitHub Actions workflow 'Deploy DFC-Studios' has failed.
-          Repository: ${{ github.repository }}
-          Workflow: ${{ github.workflow }}
-          Job: ${{ github.job }}
-          Commit: ${{ github.sha }}
-          Author: ${{ github.actor }}
-        to: system@landozone.net
-        from: sender@landozone.net
+      - name: Notify via Resend
+        uses: brunosj/actions/resend-notify@v1
+        with:
+          subject: "GitHub Actions - Deploy DFC Studios Failed"
+          resend_api_key: ${{ secrets.RESEND_API_KEY }}
+
