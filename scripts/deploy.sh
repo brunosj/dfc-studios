@@ -45,17 +45,21 @@ else
 fi
 
 # Wait for backend health before frontend build (required for localhost CMS fetches)
+echo "Waiting for backend to become reachable on http://127.0.0.1:5173 ..."
+backend_ready=false
 for i in {1..30}; do
-  if curl -fsS "http://127.0.0.1:5173/" > /dev/null; then
+  if curl -fsS "http://127.0.0.1:5173/" > /dev/null 2>&1; then
+    backend_ready=true
     break
-  fi
-  if [ "$i" -eq 30 ]; then
-    echo "Error: backend did not become reachable at http://127.0.0.1:5173"
-    pm2 logs backend --lines 100
-    exit 1
   fi
   sleep 1
 done
+
+if [ "$backend_ready" != true ]; then
+  echo "Error: backend did not become reachable at http://127.0.0.1:5173 within 30s"
+  pm2 logs backend --lines 100
+  exit 1
+fi
 
 # Build frontend with fresh data
 echo "Building frontend with fresh data..."
