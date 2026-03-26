@@ -8,7 +8,7 @@ echo "Starting deployment process..."
 # Ensure correct Node.js and pnpm are in PATH
 export PATH=$HOME/.nvm/versions/node/v22.12.0/bin:$HOME/.local/share/pnpm:$PATH
 
-BASE_DIR="/home/lando/dfcstudios"
+BASE_DIR="/home/lando/dfc-studios"
 cd "$BASE_DIR"
 
 # Pull latest changes
